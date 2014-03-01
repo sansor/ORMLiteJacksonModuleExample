@@ -21,9 +21,9 @@ import fr.pcreations.labs.RESTDroid.samples.ORMLiteJacksonModule.models.User;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	
 	private static final String DATABASE_NAME = "ormlitejackonmodule_example.db";
-	// Si on change la version la base doit se mettre à jour et réinstalle toutes les tables. Cela permet de ne pas avoir à effacer les données manuellement sur le téléphone
+	// Si on change la version la base doit se mettre Ã  jour et rÃ©installe toutes les tables. Cela permet de ne pas avoir Ã  effacer les donnÃ©es manuellement sur le tÃ©lÃ©phone
 	private static final int DATABASE_VERSION = 1;
-	// DAO pour l'objet Personne - la clé dans la base est un int donc on met Integer en second
+	// DAO pour l'objet Personne - la clÃ© dans la base est un int donc on met Integer en second
 	private UserDao userDao = null;
 	private CommentDao commentDao = null;
 	
@@ -35,7 +35,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public void onCreate(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource) {
 		int i = 1;
 		try {
-			// Ici on doit mettre toutes les tables de notre base en lui envoyant sa classe associée
+			// Ici on doit mettre toutes les tables de notre base en lui envoyant sa classe associÃ©e
 			TableUtils.createTable(connectionSource, Comment.class); i++;
 			TableUtils.createTable(connectionSource, User.class); i++;
 		} catch (SQLException e) {
@@ -48,11 +48,11 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource, int oldVer, int newVer) {
 		try {
-			// On détruit toutes les tables et leur contenu
+			// On dÃ©truit toutes les tables et leur contenu
 			TableUtils.dropTable(connectionSource, User.class, true);
 			TableUtils.dropTable(connectionSource, Comment.class, true);
 
-			// Puis on les recrée
+			// Puis on les recrÃ©e
 			onCreate(sqliteDatabase, connectionSource);
 		} catch (SQLException e) {
 			Log.e(DatabaseHelper.class.getName(), "Can't update from version " + oldVer + " to " + newVer, e);
@@ -62,7 +62,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public UserDao getUserDao() {
 		if(null == userDao) {
 			try {
-				userDao = DaoManager.createDao(getConnectionSource(), Address.class);
+				userDao = DaoManager.createDao(getConnectionSource(), User.class);
 			}catch(java.sql.SQLException e) {
 				e.printStackTrace();
 			}
@@ -74,7 +74,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public CommentDao getCommentDao() {
 		if(null == commentDao) {
 			try {
-				commentDao = DaoManager.createDao(getConnectionSource(), Note.class);
+				commentDao = DaoManager.createDao(getConnectionSource(), Comment.class);
 			}catch(java.sql.SQLException e) {
 				e.printStackTrace();
 			}
